@@ -1,4 +1,5 @@
-## This file is designed to read and write to a file named "topPlayers.txt"
+# Lir-Wan Fan
+# This file is designed to read and write to a file named "topPlayers.txt"
 
 def updateTopPlayers(playerName, attempts, quit_game=False):
     if quit_game:

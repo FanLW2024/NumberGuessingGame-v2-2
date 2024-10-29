@@ -27,7 +27,7 @@
 #         Column 2 should contain a player's name; Starts at position ten (10)
 #     The file should be sorted, by column 1, lowest score (i.e., best score) to highest score
 
-##################################################################################################
+##############################################################################
 
 # Randomly choose a number between 1 and 100 (inclusive)
 import random
@@ -47,7 +47,7 @@ print()
 print("We have selected a number between 1 and 100.")
 
 # Guess count for telling the player how many guesses it took to guess correctly
-guess_count = 0
+attempts = 0
 
 # Have the player enter a guess via input
 while True:
@@ -55,7 +55,7 @@ while True:
 
     try:
         guess_number = int(guess_number)
-        guess_count += 1
+        attempts += 1
 
         # Tell the player the guess is between 1 and 100
         if guess_number < 1 or guess_number > 100:
@@ -77,8 +77,8 @@ while True:
         # Tell the player the guess is correct and reward the player for a correct guess
         # Tell the player how many guesses it took to guess correctly
         else:
-            print(f"Good Job!! Congratulations!! You are the winner. It took you {guess_count} guesses.")
-            updateTopPlayers(playerName, guess_count)
+            print(f"Good Job!! Congratulations!! You are the winner. It took you {attempts} guesses.")
+            updateTopPlayers(playerName, attempts)
             displayTopPlayers()
             break
 
@@ -89,11 +89,11 @@ while True:
 
         # Giving the player an option to quit at any time
         if guess_number.lower() == 'q':
-            print(f"Thank you very much. You took {guess_count} guesses. Better luck next time. Goodbye!")
+            print(f"Thank you very much. You took {attempts} guesses. Better luck next time. Goodbye!")
             break
 
             # Checking the difference to give a clue for the player.
-            difference = (playerGuess - secretNumber)
+            difference = (playerGuess - random_number)
             clue = abs(difference)
             if clue <= 5:
                 print(f"Clue: You're getting closer!")
