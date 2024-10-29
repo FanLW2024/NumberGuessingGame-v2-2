@@ -1,32 +1,52 @@
-# This file is designed to read and write to a file named "topPlayers.txt"
+## This file is designed to read and write to a file named "topPlayers.txt"
 
-def loadTopPlayers(topPlayerFile):
-    # Create an empty list to store the top players' data
-    topPlayers = []
-    with open(topPlayerFile, 'r') as file:
-        # Read the content of the top players' file line by line
-        for line in file:
-            # Extract the score and player name from each line
-            score = int(line[:10].strip())
-            playerName = line[10:].strip()
-            # Append the score and player name as a tuple to the topPlayers list
-            topPlayers.append((score, playerName))
-    return topPlayers
+def updateTopPlayers(playerName, attempts, quit_game=False):
+    if quit_game:
+        return
+    # This bunch of code fore txt file reminds me the sorting file assignment.
+    # Followed the code from that one. as i'm so naive in programming, and that code worked, so..
+    try:
+        # Now opening the "topPlayers.txt" file in read mode with r.
+        with open("topPlayers.txt", "r") as file:
+            # This will read the file line by line and split each line into a list of strings
+            players = [line.strip().split() for line in file.readlines()]
+        # This will append the new player and the attempts in the file
+        players.append([str(attempts), playerName])
+        # Sorting the players list based on the number of attempts in ascending order
+        players.sort(key=lambda x: int(x[0]))
+        # This will keep only keep 5 player In the list.
+        top_players = players[:5]
 
-def writeTopPlayers(topPlayers, topPlayerFile):
-    # Write the top players' data back to the top players' file
-    with open(topPlayerFile, 'w') as file:
-        for score, playerName in topPlayers:
-            file.write(f"{score:<10}{playerName}\n")
+        # Now opening the "topPlayers.txt" file in writing mode.
+        with open("topPlayers.txt", "w") as file:
+            # This will write the updated list back to the file.
+            for player in top_players:
+                file.write(f"{player[0]} {player[1]}\n")
+    except FileNotFoundError:
+        # If the file is not found, it will create one and keep the record.
+        with open("topPlayers.txt", "w") as file:
+            file.write(f"{attempts} {playerName}\n")
 
-def updateTopPlayers(playerName, score, topPlayerFile):
-    # Load the current top players' data
-    topPlayers = loadTopPlayers(topPlayerFile)
-    # Add the new score and player name to the top players' list
-    topPlayers.append((score, playerName))
-    # Sort the top players by score (in ascending order)
-    topPlayers.sort(key=lambda x: x[0])
-    # Trim the top players' list to retain the top 5 players
-    topPlayers = topPlayers[:5]
-    # Write the updated top players' data back to the top players' file
-    writeTopPlayers(topPlayers, topPlayerFile)
+# This is to display the list of top 5 players on the screen.
+def displayTopPlayers():
+    try:
+        # Opening the updated "topPlayers.txt" file in read mode
+        with open("topPlayers.txt", "r") as file:
+            # This will read the file line by line and split each line into a list of strings
+            players = [line.strip().split() for line in file.readlines()]
+        # It will check the player list, and if there is players than it will print the list.
+        if not players:
+            print(f"There is no top players. Play the game and you will be there!")
+        else:
+            print(f"Top Players:")
+            for i, player in enumerate(players):
+                score, name = player
+                print(f"{i + 1}. {name} : {score} attempts.")
+
+    # If there is no example file or no file created for top players list.
+    except FileNotFoundError:
+        print(f"There is no file to display!!")
+    # If the file is empty or when there's an issue reading it
+    except EOFError:
+        print("An error occurred while reading the top players file.")
+
