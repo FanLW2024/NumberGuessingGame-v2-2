@@ -87,17 +87,16 @@ while True:
         if guess_number.lower() != 'q':
             print("Invalid input!")
 
-        # Give the player an option to quit at any time
+        # Giving the player an option to quit at any time
         if guess_number.lower() == 'q':
             print(f"Thank you very much. You took {guess_count} guesses. Better luck next time. Goodbye!")
             break
 
-            # Checking the difference to give a clue for  the player.
+            # Checking the difference to give a clue for the player.
             difference = (playerGuess - secretNumber)
             clue = abs(difference)
             if clue <= 5:
                 print(f"Clue: You're getting closer!")
-            # This is for exception.
 
         #except ValueError:
         print(f"Please enter a valid number.")
