@@ -56,3 +56,4 @@ def displayTopPlayers():
     except EOFError:
         print("An error occurred while reading the top players file.")
 
+

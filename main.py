@@ -34,9 +34,8 @@ import random
 
 from playerLibrary import updateTopPlayers, displayTopPlayers
 
-
 random_number = random.randint(1, 100)
-print(f"Randomly chose a number between 1 and 100 and this number will be unknown to the player: {random_number}")
+print(f"Randomly chose a number between 1 and 100 and this number will be unknown to the player")
 print("-------------------------------------------------------------------------------------------")
 print()
 
